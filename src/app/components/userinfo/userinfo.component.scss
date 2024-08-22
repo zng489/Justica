@@ -1,0 +1,51 @@
+.photo {
+    margin-right: 0rem;
+}
+
+.mat-list-base {
+    padding-top: 0rem;
+}
+
+.logged-info {
+    margin-bottom: 8px;
+}
+
+.userinfo .photo .picture mat-icon {
+    background-color: transparent;
+    font-size: 1.2em;
+    &::before {
+        color: var(--ugb-color-primary) !important;
+    }
+}
+
+.mat-button.mat-primary {
+    font-weight: bold;
+    color: var(--ugb-color-primary);
+    padding: .5rem 1rem;
+}
+
+.fa-chevron-circle-down::before {
+    color: var(--ugb-color-secondary);
+    border-radius: 50%;
+    line-height: .5rem;
+    background-color: white;
+    height: .6em;
+    width: .8em;
+}
+
+.mat-button:hover {
+    background-color: transparent !important;
+}
+
+.mat-icon-button {
+    width: 50px;
+    border-radius: 0rem;
+}
+
+.logged-info {
+    padding-bottom: 1rem;
+}
+
+.mat-icon-button {
+    border-radius: 0rem;
+}

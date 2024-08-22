@@ -1,0 +1,171 @@
+:host ::ng-deep {
+
+  mat-sidenav-container {
+    height: 100% !important;
+
+    mat-sidenav-content {
+      height: 100% !important;
+
+      &:not(.noshell) {
+        padding-top: 0px !important;
+      }
+      &.noshell {
+        padding-top: 0px !important;
+      }
+      .iframe-orientation {
+        height: 100%;
+      }
+    }
+  }
+
+
+  @media only screen and (max-width: 992px) {
+    .mat-sidenav-container .mat-sidenav-content {
+      padding-bottom: 0 !important;
+    }
+    .graph-navigation-save {
+      .fa-save:before {
+        margin-right: 0 !important;
+        color: var(--color-btn-text);
+      }
+      &:disabled .fa-save:before {
+        color: var(--color-btn-text-disabled);
+      }
+    }
+  }
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat/static/Montserrat-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat/static/Montserrat-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat/static/Montserrat-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat/static/Montserrat-BlackItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+::ng-deep {
+  // Urlid-graph-browser themes
+  body {
+    --ugb-font-system: 'Montserrat';
+    --ugb-font-mono: 'Montserrat';
+    --font-family: 'Montserrat';
+
+    --ugb-border-radius: 0.1rem;
+    --ugb-input-border-radius: 0.1rem;
+
+    --border-radius: 0.1rem;
+    --border-radius-btn: 0.1rem;
+
+    --ugb-font-lg: 1.1em;
+    --ugb-font-md: 0.9em;
+    --ugb-font-sm: 0.65em;
+  }
+
+  body:not(.dark) {
+
+    --ugb-border-radius: 0.1rem;
+    --ugb-input-border-radius: 0.1rem;
+
+    --ugb-color-info-key: rgb(0, 110, 104);
+
+    --ugb-color-bg-graph: rgb(233, 237, 242);
+    --ugb-color-disabled: rgb(184, 184, 184);
+
+    --ugb-color-primary: rgb(27, 70, 141);
+    --ugb-color-primary-hover: rgb(1, 52, 139);
+    --ugb-color-secondary: rgb(0, 159, 150);
+    --ugb-color-secondary-hover: rgb(0, 133, 127);
+
+    --ugb-color-info-table-even: rgb(255, 255, 255);
+    --ugb-color-info-table-hover: rgb(244, 244, 244);
+
+    --color-primary: var(--ugb-color-primary);
+    --color-secondary: var(--ugb-color-secondary);
+  }
+
+  body.dark {
+    --ugb-border-radius: 0.1rem;
+    --ugb-input-border-radius: 0.1rem;
+    --ugb-color-info-table-even: rgb(33, 33, 33);
+    --ugb-color-info-table-hover: rgb(50, 50, 50);
+
+    // Removing unecessary space in userinfo icon
+    .mat-button-wrapper .userinfo .photo {
+        margin-right: 0rem !important;
+    }
+
+    .mat-raised-button .mat-button-wrapper {
+      color: var(--ugb-color-btn-text);
+    }
+  }
+
+  .logomobile {
+    content: url("../assets/images/uikit-logotipo-mobile.svg") !important;
+  }
+  .logodesk {
+    content: url("../assets/images/uikit-logotipo.svg") !important;
+  }
+
+  .dark {
+    .logomobile {
+      content: url("../assets/images/uikit-logotipo-mobile-bw.svg") !important;
+    }
+    .logodesk {
+      content: url("../assets/images/uikit-logotipo-bw.svg") !important;
+    }
+  }
+
+  *:focus-visible:not(.vis-network) {
+    outline: 2px solid var(--ugb-color-primary) !important;
+  }
+
+  .mat-tooltip {
+    font-size: 0.7em;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .mat-flat-button.mat-primary,
+  .mat-mini-fab.mat-primary,
+  .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary,
+  .mat-primary .mat-slider-thumb,
+  .mat-primary .mat-slider-track-fill {
+    background-color: var(--ugb-color-primary);
+  }
+
+  button mat-icon {
+    color: var(--ugb-color-primary);
+  }
+
+  .menu-tree .mat-tree-node li a.active mat-icon,
+  .mat-icon-button.mat-primary {
+    color: var(--ugb-color-primary) !important;
+  }
+}
+
+.mat-line {
+  .mat-slider-horizontal {
+    max-width: 275px;
+    cursor: pointer;
+  }
+}
+

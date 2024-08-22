@@ -1,0 +1,51 @@
+<mat-menu #userInfoMenu="matMenu">
+  <mat-list class="dropdown-list" (click)="$event.stopPropagation()">
+    <div class="logged-info">
+      <mat-list>
+        <mat-list-item>
+          <div mat-line>
+            <h4>
+              <div *ngIf="user$.nome">
+                <b style="font-size: 13px;">
+                  Nome
+                </b>
+                <br>
+                <b>
+                  {{ user$.nome }}
+                </b>
+                <br><br>
+              </div>
+              <div *ngIf="user$.cpf">
+                <b style="font-size: 13px;">
+                  CPF
+                </b>
+                <br>
+                <span>{{ user$.cpf }}</span>
+              </div>
+            </h4>
+          </div>
+          <div mat-line *ngIf="user$.email">
+            <h4>{{ user$.email }}</h4>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <mat-action-list>
+      <a *ngIf="userOptionService.getSisbajudOrdens()" (click)="orderGraphRequest()" mat-list-item>Sisbajud</a>
+      <a *ngIf="userOptionService.getInfojud()" (click)="infoGraphRequest()" mat-list-item>Infojud</a>
+      <mat-divider *ngIf="userOptionService.getSisbajudOrdens() || userOptionService.getInfojud()"></mat-divider>
+      <a (click)="logout()" mat-list-item>Sair</a>
+    </mat-action-list>
+  </mat-list>
+</mat-menu>
+<button tabindex="6" mat-icon-button class="btn-user-info" color="primary" [matMenuTriggerFor]="userInfoMenu"
+                                                           matTooltip="Usuário Autenticado" aria-label="Usuário Autenticado">
+  <div class="userinfo">
+    <div class="photo">
+      <div class="picture">
+        <mat-icon aria-label="Example icon-button with a heart icon" class="fas fa-user"></mat-icon>
+      </div>
+      <mat-icon class="fas fa-chevron-circle-down"></mat-icon>
+    </div>
+  </div>
+</button>

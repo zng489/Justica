@@ -1,0 +1,112 @@
+<mat-menu  #accessibilityMenu="matMenu">
+  <mat-list
+    class="dropdown-list"
+    (click)="$event.stopPropagation()"
+    style="display: contents"
+  >
+    <h3 mat-subheader>Acessibilidade</h3>
+
+    <mat-list>
+      <mat-list-item class="tamanho-fonte">
+        <div mat-line class="mat-menu-custom">
+          <h4>Tamanho das fontes</h4>
+          <mat-slider
+            #slider
+            [max]="1.2"
+            [min]="0.8"
+            [step]="0.1"
+            [value]="1"
+            color="primary"
+          >
+          </mat-slider>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+
+      <mat-list-item class="contraste">
+        <div mat-line>
+          <h4>Contraste</h4>
+          <p>
+            <mat-slide-toggle #toggleContrast color="primary">{{
+              !toggleContrast.checked ? 'Ligar' : 'Desligar'
+            }}</mat-slide-toggle>
+          </p>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="showShortcuts">
+        <!-- Qualquer elemento para representar uma versão (changelog) -->
+        <div mat-line>
+          <h4>Teclas de atalho</h4>
+
+          <p >
+            Pesquisa
+            <mat-chip-list>
+              <mat-chip>ctrl</mat-chip> +
+              <mat-chip color="primary" selected>f</mat-chip>
+            </mat-chip-list>
+          </p>
+
+          <p>
+            Salvar grafo
+            <mat-chip-list>
+              <mat-chip>ctrl</mat-chip> +
+              <mat-chip color="primary" selected>s</mat-chip>
+            </mat-chip-list>
+          </p>
+
+          <p>
+            Abrir grafo salvo
+            <mat-chip-list>
+              <mat-chip>ctrl</mat-chip> +
+              <mat-chip color="primary" selected>o</mat-chip>
+            </mat-chip-list>
+          </p>
+
+          <p>
+            Volta/Avança Objeto
+            <mat-chip-list>
+              <mat-chip
+                ><mat-icon
+                  class="fas fa-arrow-left"
+                  style="width: auto; margin: 0px !important"
+                ></mat-icon
+              ></mat-chip>
+              ou
+              <mat-chip
+                ><mat-icon
+                  class="fas fa-arrow-right"
+                  style="width: auto; margin: 0px !important"
+                ></mat-icon
+              ></mat-chip>
+            </mat-chip-list>
+          </p>
+
+          <p>
+            Menu Principal
+            <mat-chip-list>
+              <mat-chip>ctrl</mat-chip> +
+              <mat-chip color="primary" selected>m</mat-chip>
+            </mat-chip-list>
+          </p>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-list>
+
+  <!-- <mat-action-list>
+    <a mat-list-item routerLink=".">ver todos</a>
+  </mat-action-list> -->
+</mat-menu>
+
+<button
+  mat-icon-button
+  color="primary"
+  [matMenuTriggerFor]="accessibilityMenu"
+  matTooltip="Acessibilidade"
+  aria-label="Acessibilidade"
+  tabindex="5"
+>
+  <mat-icon class="fa-2x fas fa-universal-access acessibility"></mat-icon>
+</button>

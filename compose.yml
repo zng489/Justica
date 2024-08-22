@@ -1,0 +1,12 @@
+services:
+    web:
+       build:
+         context: .
+         dockerfile: Dockerfile-dev
+       container_name: sniper_frontend
+       ports:
+         - "4200:4200"
+       restart: unless-stopped
+       volumes:
+         - .:/app
+         - /app/node_modules
