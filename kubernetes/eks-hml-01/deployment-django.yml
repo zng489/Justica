@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sniper-backend
+  labels:
+    app: sniper-backend
+    part-of: pdpj
+spec:
+  selector:
+    matchLabels:
+      app: sniper-backend
+      part-of: pdpj
+  template:
+    metadata:
+      labels:
+        app: sniper-backend
+        part-of: pdpj
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sniper-backend
+                  part-of: pdpj
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: sniper-backend
+        image: registry.cnj.jus.br/pdpj/sniper-backend-hml:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: sniper-backend-config
+        - secretRef:
+            name: sniper-temp-secret
+        - secretRef:
+            name: sniper-db-secret
+        env:
+        - name: TZ
+          value: America/Sao_Paulo
+        - name: GRAPH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: sniper-agensgraph-db-secret
+              key: DATABASE_URL
+        ports:
+        - containerPort: 80
+          name: http
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          failureThreshold: 6
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /
+            port: http
+          failureThreshold: 20
+          periodSeconds: 30
+          timeoutSeconds: 10
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+      imagePullSecrets:
+      - name: registry-cnj

@@ -1,0 +1,4 @@
+field_name,field_type
+id_estabelecimento,text
+nu_cnpj_raiz,text
+te_dados,json

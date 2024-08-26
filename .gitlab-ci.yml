@@ -1,0 +1,200 @@
+stages:
+  - test-k8s
+  - build
+#  - test
+  - release
+  - deploy
+
+.env-staging:
+  variables:
+    ENV_SLUG: hml
+  environment:
+    name: eks-hml-01
+    deployment_tier: staging
+    url: https://sniper-api.stg.pdpj.jus.br
+    kubernetes:
+      namespace: sniper
+
+.env-production:
+  variables:
+    ENV_SLUG: prd
+  environment:
+    name: eks-prd-01
+    deployment_tier: production
+    url: https://sniper-api.pdpj.jus.br
+    kubernetes:
+      namespace: sniper
+
+#test:
+#  image: python:3.10-slim-bullseye
+#  stage: test
+#  services:
+#    - name: postgres:13.3
+#      alias: db
+#    - name: opensearchproject/opensearch:2.13.0
+#      alias: opensearch
+#    - name: redis:alpine
+#      alias: redis
+#  variables:
+#    POSTGRES_USER: "postgres"
+#    POSTGRES_PASSWORD: "supersecret"
+#    POSTGRES_DB: "sniper-backend-cicd"
+#    POSTGRES_HOST_AUTH_METHOD: "trust"
+#    ALLOWED_HOSTS: "*"
+#    AUDITORIA_ENABLE: "False"
+#    CORS_ALLOWED_ORIGINS: "http://localhost:4200,http://127.0.0.1:5000,http://localhost:8080,http://127.0.0.1:8080"
+#    DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
+#    DEBUG: "True"
+#    GRAPH_DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/graphdb"
+#    KEYCLOAK_CHECK_USER_PROFILE: "False"
+#    KEYCLOAK_CLIENT_ID: "sniper-backend"
+#    KEYCLOAK_CLIENT_SECRET_KEY: "secret_key"
+#    KEYCLOAK_ENABLE_MIDDLEWARE: "False"
+#    KEYCLOAK_REALM_NAME: "pdpj"
+#    KEYCLOAK_SERVER_URL: "http://localhost:8080/auth"
+#    REDIS_URL: "redis://redis:6379/"
+#    SECRET_KEY: "suuuuupersecret"
+#    SISBAJUD_API_URL: "http://fakeapi/sisbajud/"
+#    SISBAJUD_CLIENT_ID: "1234"
+#    SISBAJUD_CLIENT_SECRET: "secret"
+#    SISBAJUD_CONTAS_ENABLE: "True"
+#    SISBAJUD_ORDENS_ENABLE: "True"
+#    SISBAJUD_PASSWORD: "password"
+#    SISBAJUD_USERNAME: "username"
+#    TERMS_ACCEPTED_ENABLE_MIDDLEWARE: "True"
+#    MARKETPLACE_URL: "http://fakeapi/marketplace/"
+#    OPENID_AUTH_URL: "https://sso.stg.cloud.pje.jus.br/auth/realms/pje/protocol/openid-connect/token/"
+#    INFOJUD_API_URL: "http://fakeapi/infojud/"
+#    CABECALHO_PROCESSUAL_API_URL: "https://gateway.stg.cloud.pje.jus.br/cabecalho-processual/"
+#    CABECALHO_PROCESSUAL_CLIENT_ID: "xxxxx"
+#    CABECALHO_PROCESSUAL_CLIENT_SECRET: "xxxxxx"
+#    CABECALHO_PROCESSUAL_TOKEN_URL: "https://sso.stg.cloud.pje.jus.br/auth/realms/pje/protocol/openid-connect/token"
+#    CABECALHO_PROCESSUAL_ENABLE: "True"
+#    INFOJUD_ENABLE: "True"
+#    OPENSEARCH_URL: "opensearch"
+#    OPENSEARCH_PORT: "9200"
+#    OPENSEARCH_USER: "admin"
+#    OPENSEARCH_PASSWORD: "123S!c456"
+#    OPENSEARCH_INITIAL_ADMIN_PASSWORD: "${OPENSEARCH_PASSWORD}"
+#    TESTING_ENV: "True"
+#    WEB_WORKERS: "1"
+#    OPENSEARCH_JAVA_OPTS: "-Xms512m -Xmx512m"
+#  cache:
+#    paths:
+#      - ~/.cache/pip/
+#      - ~/.cache/pipenv/
+#  before_script:
+#    - apt update
+#    - apt install -y build-essential less libpq-dev postgresql-client procps wget
+#    - python -V
+#    - pip install -r requirements-development.txt
+#  script:
+#    - pytest -v
+
+.test-k8s-template:
+  stage: test-k8s
+  image:
+    name: registry.cnj.jus.br/segsa/k8s-utils:latest
+    entrypoint: [ "" ]
+  dependencies: []
+  artifacts:
+    paths: [ "kubernetes/" ]
+  environment:
+    action: prepare
+  script:
+    - cd "$CI_PROJECT_DIR/kubernetes/$CI_ENVIRONMENT_NAME"
+    - kustomize edit set namespace "$KUBE_NAMESPACE"
+    - kustomize edit set image "registry.cnj.jus.br/pdpj/sniper-backend-$ENV_SLUG:$CI_COMMIT_SHORT_SHA"
+    - kustomize edit add annotation --force "app.gitlab.com/app:${CI_PROJECT_PATH_SLUG}"
+      "app.gitlab.com/env:${CI_ENVIRONMENT_SLUG}" "app.gitlab.com/commit-short-sha:${CI_COMMIT_SHORT_SHA}"
+    - kubectl apply --dry-run=client -k .
+
+test-k8s-stg:
+  extends:
+    - .env-staging
+    - .test-k8s-template
+  only:
+    - develop
+    - feature/102-logs-auditoria
+
+test-k8s-prd:
+  extends:
+    - .env-production
+    - .test-k8s-template
+  only:
+    - main
+
+.docker-image-build:
+  stage: build
+  image: docker:20.10
+  services:
+    - docker:20.10-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u "$NEXUS_USERNAME" -p "$NEXUS_PASSWORD" registry.cnj.jus.br
+  script:
+    - docker pull "registry.cnj.jus.br/pdpj/sniper-backend-$ENV_SLUG:latest" || true
+    - echo "$CI_COMMIT_SHA" > "$CI_PROJECT_DIR"/config/version.txt
+    - docker build --cache-from "registry.cnj.jus.br/pdpj/sniper-backend-$ENV_SLUG:latest" --pull -t "registry.cnj.jus.br/pdpj/sniper-backend-$ENV_SLUG:$CI_COMMIT_SHORT_SHA" -t "registry.cnj.jus.br/pdpj/sniper-backend-$ENV_SLUG:latest" "$CI_PROJECT_DIR"
+    - docker push "registry.cnj.jus.br/pdpj/sniper-backend-$ENV_SLUG:$CI_COMMIT_SHORT_SHA"
+    - docker push "registry.cnj.jus.br/pdpj/sniper-backend-$ENV_SLUG:latest"
+
+docker-image-build-stg:
+  extends:
+    - .env-staging
+    - .docker-image-build
+  only:
+    - develop
+    - feature/102-logs-auditoria
+
+docker-image-build-prd:
+  extends:
+    - .env-production
+    - .docker-image-build
+  only:
+    - main
+
+release-job:
+  stage: release
+  image:
+    name: registry.gitlab.com/gitlab-org/release-cli:latest
+    entrypoint: [ "" ]
+  dependencies: []
+  rules:
+    - if: $CI_COMMIT_TAG
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - release-cli create --tag-name "${CI_COMMIT_TAG}" --description "${CI_COMMIT_MESSAGE}"
+
+.deploy-template:
+  stage: deploy
+  image:
+    name: registry.cnj.jus.br/segsa/k8s-utils:latest
+    entrypoint: [ "" ]
+  retry:
+    max: 2
+    when: stuck_or_timeout_failure
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - cd "$CI_PROJECT_DIR/kubernetes/$CI_ENVIRONMENT_NAME"
+    - kubectl apply -k .
+
+deploy-stg:
+  extends:
+    - .env-staging
+    - .deploy-template
+  dependencies: [ "test-k8s-stg" ]
+  only:
+    - develop
+    - feature/102-logs-auditoria
+
+deploy-prd:
+  extends:
+    - .env-production
+    - .deploy-template
+  dependencies: [ "test-k8s-prd" ]
+  only:
+    - main

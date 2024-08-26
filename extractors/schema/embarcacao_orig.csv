@@ -1,0 +1,8 @@
+field_name,field_type
+reb,text
+nome,text
+data_registro,date
+data_validade,date
+proprietario,text
+rpm_tie_ait,text
+status,text

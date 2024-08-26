@@ -1,0 +1,6 @@
+data/
+docker/
+extractors/data/
+.git
+*.csv.gz
+*.csv.xz

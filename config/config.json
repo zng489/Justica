@@ -1,0 +1,256 @@
+{
+    "options": {
+        "all_nodes_relationships_chunk_size": 10,
+        "expanded_node_group_suffix": "_expanded",
+        "layout": {
+            "improvedLayout": false
+        },
+        "physics": {
+            "enabled": true,
+            "stabilization": {
+                "enabled": true,
+                "iterations": 2000,
+                "updateInterval": 10
+            },
+            "barnesHut": {
+                "avoidOverlap": 1,
+                "gravitationalConstant": -100000,
+                "springConstant": 1,
+                "springLength": 200
+            },
+            "forceAtlas2Based": {
+                "theta": 0.01,
+                "gravitationalConstant": -150,
+                "centralGravity": 0.01,
+                "springConstant": 0.08,
+                "springLength": 500,
+                "damping": 0.1,
+                "avoidOverlap": 0
+            },
+            "solver": "barnesHut"
+        },
+        "edges": {
+            "arrows": {
+                "to": {
+                    "enabled": true
+                }
+            },
+            "arrowStrikethrough": false,
+            "width": 2,
+            "color": {
+                "color": "rgb(1, 52, 139)",
+                "highlight": "rgb(27, 70, 141)"
+            },
+            "font": {
+                "face": "Montserrat",
+                "size": 13,
+                "color": "#1a202c",
+                "strokeWidth": 3,
+                "strokeColor": "#ffffff",
+                "align": "middle",
+                "background": "rgb(233, 237, 242)"
+            }
+        },
+        "nodes": {
+            "borderWidth": 2,
+            "borderWidthSelected": 3,
+            "shape": "square",
+            "shapeProperties": {
+                "interpolation": false
+            },
+            "font": {
+                "multi": true,
+                "face": "Montserrat",
+                "size": 16,
+                "color": "#1a202c",
+                "background": "#fff",
+                "strokeColor": "none",
+                "strokeWidth": 0,
+                "vadjust": 2,
+                "bold": {
+                    "face": "'Font Awesome 5 Free'",
+                    "color": "#2259b1",
+                    "vadjust": 2,
+                    "size": 14,
+                    "mod": "bold"
+                },
+                "ital": {
+                    "face": "'Font Awesome 5 Free'",
+                    "color": "red",
+                    "size": 14,
+                    "vadjust": 2,
+                    "mod": "bold"
+                },
+                "boldital": {
+                    "face": "'Font Awesome 5 Free'",
+                    "color": "#212121",
+                    "vadjust": 2,
+                    "size": 14,
+                    "mod": "normal"
+                },
+                "mono": {
+                    "face": "'Font Awesome 5 Free'",
+                    "color": "#212121",
+                    "size": 14,
+                    "vadjust": 2,
+                    "mod": "bold"          
+                }
+            },
+            "icon": {
+                "face": "\"Font Awesome 5 Free\"",
+                "size": 50
+            },
+            "color": {
+                "border": "#fff",
+                "highlight": {
+                    "border": "white"
+                }
+            },
+            "shadow": {
+                "enabled": false,
+                "size": 4
+            }
+        },
+        "groups": {
+            "company": {
+                "color": {
+                    "border": "#fff",
+                    "background": "rgba(42, 187, 172)",
+                    "highlight": {
+                        "border": "white",
+                        "background": "rgba(42, 187, 172)"
+                    }
+                },
+                "icon": {
+                    "code": "\uf1ad",
+                    "color": "#f7fafc",
+                    "description": "Entidade sem relações expandidas"
+                }
+            },
+            "company_expanded": {
+                "shadow": {
+                    "enabled": true,
+                    "size": "4"
+                },
+                "color": {
+                    "border": "#fff",
+                    "background": "rgb(0, 105, 91)",
+                    "highlight": {
+                        "border": "white",
+                        "background": "rgb(0, 105, 91)"
+                    }
+                },
+                "icon": {
+                    "code": "\uf1ad",
+                    "color": "#fff",
+                    "description": "Entidade com todas as relações já expandidas"
+                }
+            },
+            "person": {
+                "color": {
+                    "border": "#fff",
+                    "background": "rgb(121, 129, 140)",
+                    "highlight": {
+                        "border": "white",
+                        "background": "rgb(121, 129, 140)"
+                    }
+                },
+                "icon": {
+                    "code": "\uf007",
+                    "color": "#f7fafc",
+                    "description": "Indivíduo sem relações expandidas"
+                }
+            },
+            "person_expanded": {
+                "shadow": {
+                    "enabled": true,
+                    "size": "4"
+                },
+                "color": {
+                    "border": "#fff",
+                    "background": "rgba(67, 74, 84)",
+                    "highlight": {
+                        "border": "white",
+                        "background": "rgba(67, 74, 84)"
+                    }
+                },
+                "icon": {
+                    "code": "\uf007",
+                    "color": "#fff",
+                    "description": "Indivíduo com todas as relações já expandidas"
+                }
+            },
+            "candidacy": {
+                "color": {
+                    "border": "#fff",
+                    "background": "rgba(255, 130, 102)",
+                    "highlight": {
+                        "border": "white",
+                        "background": "rgba(255, 130, 102)"
+                    }
+                },
+                "icon": {
+                    "code": "\uf2bb",
+                    "color": "#f7fafc",
+                    "description": "Candidatura sem relações expandidas"
+                }
+            },
+            "candidacy_expanded": {
+                "shadow": {
+                    "enabled": true,
+                    "size": "4"
+                },
+                "color": {
+                    "border": "#fff",
+                    "background": "rgb(233, 87, 62)",
+                    "highlight": {
+                        "border": "white",
+                        "background": "rgb(233, 87, 62)"
+                    }
+                },
+                "icon": {
+                    "code": "\uf2bb",
+                    "color": "#fff",
+                    "description": "Candidatura com todas as relações já expandidas"
+                }
+            }
+        }
+    },
+    "darkThemeOptions": {
+        "nodes": {
+          "font": {
+            "strokeColor": "none",
+            "strokeWidth": 0,
+            "color": "#fff",
+            "background": "#000",
+            "bold": {
+              "color": "#578df2"
+            },
+            "ital": {
+              "color": "#ff5757"
+            },
+            "boldital": {
+              "color": "#f0f0f0"
+            },
+            "mono": {
+              "color": "#f0f0f0"
+            }
+          }
+        },
+        "edges": {
+          "color": {
+            "color": "#f0fffa",
+            "highlight": "#e6e6e6"
+          },
+          "font": {
+            "color": "#fff",
+            "background": "#363636",
+            "strokeWidth": 0,
+            "strokeColor": "none"
+          }
+        }
+    },
+    "endpoints": {
+        "search": "/v1/search"
+    }
+}

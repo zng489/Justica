@@ -1,0 +1,12 @@
+-r requirements.txt
+
+autoflake
+black
+flake8
+freezegun==1.2.1
+ipython==7.29.0
+isort
+model-bakery==1.10.1
+pytest-django==4.5.2
+pytest==7.2.1
+responses==0.21.0

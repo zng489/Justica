@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sniper-backend
+  labels:
+    app: sniper-backend
+    part-of: pdpj
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+  selector:
+    app: sniper-backend
+    part-of: pdpj

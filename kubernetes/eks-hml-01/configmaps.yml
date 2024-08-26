@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sniper-backend-config
+  labels:
+    app: sniper-backend
+    part-of: pdpj
+data:
+  ADMINS: "Time de Operação do Sniper|operacao-sniper@cnj.jus.br"
+  ALLOWED_HOSTS: "*"
+  CORS_ALLOWED_ORIGINS: "https://sniper.stg.pdpj.jus.br"
+  DEBUG: "True"
+  KEYCLOAK_ENABLE_MIDDLEWARE: "True"
+  KEYCLOAK_FREE_PATHS_REGEX: "^/admin/*,^/healthz,^/ping,^/version,^/$"
+  KEYCLOAK_REALM_NAME: "pje"
+  KEYCLOAK_SERVER_URL: "https://sso.stg.cloud.pje.jus.br/auth/"
+  MARKETPLACE_URL: "https://marketplace.stg.pdpj.jus.br"
+  OPENID_AUTH_URL: "https://sso.stg.cloud.pje.jus.br/auth/realms/pje/protocol/openid-connect/token/"
+  REDIS_URL: "redis://redis-service:6379/"
+  CABECALHO_PROCESSUAL_ENABLE: "True"
+  CABECALHO_PROCESSUAL_API_URL: "https://gateway.stg.cloud.pje.jus.br/cabecalho-processual/"
+  CABECALHO_PROCESSUAL_TOKEN_URL: "https://sso.stg.cloud.pje.jus.br/auth/realms/pje/protocol/openid-connect/token"
+  SISBAJUD_CONTAS_ENABLE: "True"
+  SISBAJUD_ORDENS_ENABLE: "True"
+  SISBAJUD_API_URL: "https://sisbajud-homologacao.stg.cloud.pje.jus.br/"
+  INFOJUD_ENABLE: "True"
+  INFOJUD_API_URL: "https://gateway.stg.cloud.pje.jus.br/infojud/"
+  OPENSEARCH_URL: "opensearch.stg.pdpj.jus.br"
+  OPENSEARCH_PORT: "443"
+  OPENSEARCH_USER: "sniper"
+  WEB_WORKERS: "2"
+...

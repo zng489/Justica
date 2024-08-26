@@ -1,0 +1,10 @@
+field_name,field_type
+nome,text
+documento,text
+processo,text
+tipo,text
+data_inicio,date
+data_final,date
+orgao,text
+fundamentacao,text
+multa,decimal

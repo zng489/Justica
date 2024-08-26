@@ -1,0 +1,4 @@
+field_name,field_type
+nu_cnpj_raiz,text
+id_socio,text
+te_dados,json

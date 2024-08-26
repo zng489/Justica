@@ -1,0 +1,24 @@
+codigo,descricao
+1,"Empregado de empresa do setor privado, exceto de instituições financeiras"
+2,Empregado de instituições financeiras públicas e privadas
+3,Empregado ou contratado de organismo internacional e de organização não-governamental
+11,Profissional liberal ou autônomo sem vínculo de emprego
+12,Proprietário de empresa ou de firma individual ou empregador-titular
+13,"Capitalista, que auferiu rendimentos de capital, inclusive de aluguéis"
+14,Microempreendedor individual (MEI)
+21,Membro ou servidor público da administração direta federal
+22,Servidor público de autarquia ou fundação federal
+23,"Empregado de empresa pública ou de sociedade de economia mista federal, exceto de instituições financeiras"
+31,Membro ou servidor público da administração direta estadual e do Distrito Federal
+32,Servidor público de autarquia ou fundação estadual e do Distrito Federal
+33,"Empregado de empresa pública ou de sociedade de economia mista estadual e do Distrito Federal, exceto de instituições financeiras"
+41,Membro ou servidor público da administração direta municipal
+42,Servidor público de autarquia ou fundação municipal
+43,Empregado de empresa pública ou de sociedade de economia mista municipal
+51,Militar
+61,"Aposentado, militar da reserva ou reformado e pensionista de previdência, exceto os abrangidos pelo código 62"
+62,"Aposentado, militar reformado e pensionista de previdência oficial portador de moléstia grave"
+71,Beneficiário de pensão alimentícia
+72,Bolsista
+81,Espólio
+91,Natureza da ocupação não especificada anteriormente

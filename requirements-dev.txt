@@ -1,0 +1,15 @@
+Django==3.2.9
+dj-database-url==0.5.0
+django-cors-headers==3.10.0
+django-extensions==3.1.5
+django-health-check==3.16.5
+djangorestframework==3.12.4
+gunicorn==20.1.0
+loguru==0.5.3
+python-decouple==3.6
+whitenoise==5.3.0
+requests-oauthlib
+opensearch-py
+opensearch-dsl
+pandas
+geoip2
