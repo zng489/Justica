@@ -1,0 +1,55 @@
+Configurando o Keycloak
+
+Acesse o Keycloack em localhost:8080
+
+Clicar em administration console
+Logar com admin/admin
+Passar o mouse sobre "Master" e clicar em "Add realm"
+Adicionar realm "pdpj"
+Com realm "pdpj" selecionado, clicar em "Clients" > "Create"
+Preencha o formulário com:
+
+Em Client ID, preencha "sniper-frontend"
+Em Client Protocol, selecione "openid-connect"
+Clique em "Save" e continue na página do client criado, para editar os
+campos abaixo:
+Digite * em "Valid Redirect URIs" e clique no botão "+"
+Digite * em "Web Origins" e clique no botão "+"
+Clique em "Save"
+
+
+Com realm "pdpj" selecionado, clicar em "Clients" > "Create"
+
+Em Client ID, preencha "sniper-backend"
+Em Client Protocol, selecione "openid-connect"
+Clique em "Save" e continue na página do client criado, para editar os
+campos abaixo:
+Em Access Type, selecione "bearer-only"
+Clique em "Save"
+Ainda na tela desse client, clique em "Credentials" e depois no botão
+"Regenerate Secret"
+Copie o secret que aparece no campo "Secret" do formulário
+
+
+Altere o arquivo .env para conter:
+
+
+export KEYCLOAK_CLIENT_SECRET_KEY=<secret-copiada> (sem os < e >)
+
+
+Ainda com o realm "pdpj", clique em "Users" > "Add user"
+Preencha o formulário com:
+
+Em Username, preencha seu CPF ou "11111111111"
+Em "Email verified", marque "ON"
+Clique em "Save"
+Ainda na tela desse user, preencha os campos:
+Em "Email", preencha "user1@example.com"
+Em "First Name", preencha "João"
+Em "Last Name", preencha "da Silva"
+Clique em "Save"
+
+
+Na tela do usuário criado, clicar em "Credentials", preencher uma senha e a
+confirmação de senha, desmarcar "temporary password" e clicar em "Set"
+Para que a mudança de secret do backend faça efeito, execute docker compose down, source .env e docker compose up
